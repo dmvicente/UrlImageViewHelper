@@ -12,8 +12,10 @@ import java.util.Hashtable;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.params.HttpClientParams;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 
@@ -25,10 +27,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.widget.ImageView;
 
 public final class UrlImageViewHelper {
@@ -217,7 +217,8 @@ public final class UrlImageViewHelper {
         AsyncTask<Void, Void, Drawable> downloader = new AsyncTask<Void, Void, Drawable>() {
             @Override
             protected Drawable doInBackground(Void... params) {
-                AndroidHttpClient client = AndroidHttpClient.newInstance(context.getPackageName());
+                HttpClient client = new DefaultHttpClient();
+//                .newInstance(context.getPackageName());
                 try {
                     HttpGet get = new HttpGet(url);
                     final HttpParams httpParams = new BasicHttpParams();
@@ -244,7 +245,7 @@ public final class UrlImageViewHelper {
                     return null;
                 }
                 finally {
-                    client.close();
+//                    client.close();
                 }
             }
 
